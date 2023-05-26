@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>构造函数</h2>
+    <script>
+    // 第一部分：构造函数原理
+    
+    // 构造函数的简单例子
+    function F1 () {
+        this.name = 'jojo'
+    }
+
+    var f1a = new F1()
+    console.log(f1a.name)  //'jojo'
+    f1a.name = 'jo'  //更改实例f1a的属性，不会影响F1构造函数
+    console.log(f1a.name)  //'jo'
+
+    var f1b = new F1()
+    console.log(f1b.name)  //仍然是'jojo'
+
+
+    // 构造函数是什么原理呢？下面使用普通函数来模拟上面构造函数的功能
+    function f1 () {
+        var o = {}  //新建一个对象
+        o.name = "tom"  //给对象添加属性
+        return o  //返回这个对象
+    }
+    var f1c = f1()
+    console.log(f1c.name)  //'tom'
+    f1c.name = 'jarry'  //更改f1c对象的属性，不会影响f1函数
+    console.log(f1c.name)  //'jarry'
+    var f1d = f1()
+    console.log(f1d.name)  //仍然是'tom'，没有被f1c的重新赋值所影响
+
+    // 总结：
+    // 构造函数的this，指向其实例对象。
+    // 例如
+    // function F1 () {
+    //     //隐形建立一个对象，这个对象是未来的实例化对象
+    //     this.name = 'jojo'  //给实例对象绑定name属性
+    //     //利用new实例化对象时，返回这个建立的对象
+    // }
+    // var f1a = new F1()  //实例化一个对象f1b
+    // console.log(f1a.name)  //'jojo'
+
+
+    // 第二部分：带返回值的构造函数
+
+    // 第一种情况，构造函数的返回值不是一个对象，那么和不带返回值一样，this指向其new构建的实例对象
+    function F2 () {
+        this.name = 'F2name'
+        return 123
+    }
+    var f2 = new F2()
+    console.log(f2.name)  //F2name
+
+    // 第二种情况，构造函数的返回值是一个对象，那么这个返回的对象作为其new构建的实例对象的上下文
+    function F3 () {
+        this.name = 'F3name'
+        var f3obj = {
+            name: 'f3对象name'
+        }
+        return f3obj
+    }
+    var f3 = new F3()
+    console.log(f3.name)  //'f3对象name'
+
+    </script>
+</body>
+</html>

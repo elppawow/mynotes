@@ -1,0 +1,92 @@
+
+/*layout开始*/
+body{
+    margin: 0;
+    border: 0;
+    font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.clear{
+    clear: both;
+}
+/*layout结束*/
+
+/*分页开始*/
+.ynrfenye>nav{
+    float: right;
+}
+.ynrfenye2{
+    width: 300px;
+    float: right;
+    font-size: 14px;
+    color: #666666;
+    margin-left: 15px;
+}
+.ynrfenye2a{
+    float: left;
+    margin-top: 24px;
+    margin-right: 20px;
+}
+.ynrfenye2b{
+    float: left;
+    margin-top: 21px;
+    margin-right: 20px;
+}
+.ynrfenye2c{
+    float: left;
+    margin-top: 20px;
+    margin-right: 20px;
+    background-color: #108ee9;
+    border-radius: 4px;
+    padding: 3px 7px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.ynrfenye2c:hover{
+    background-color: #4cb2ff;
+}
+.ynrfenye2b>input{
+    width: 50px;
+    margin: 0 10px;
+    border: 1px solid #ddd !important;
+}
+
+#paging .active{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #d62003;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+#paging .next{
+    color: #23527c;
+}
+#paging .prev{
+    color: #23527c;
+}
+#paging>a{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+#paging>span{
+     position: relative;
+     float: left;
+     padding: 6px 12px;
+     margin-left: -1px;
+     line-height: 1.42857143;
+     text-decoration: none;
+     background-color: #fff;
+     border: 1px solid #ddd;
+ }
+ /*分页结束*/
+
+ 

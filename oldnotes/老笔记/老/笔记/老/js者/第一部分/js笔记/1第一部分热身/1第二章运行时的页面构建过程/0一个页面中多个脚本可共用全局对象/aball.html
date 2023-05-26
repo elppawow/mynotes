@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>第二章 运行时的页面构建过程</h2>
+    <h3>同一个页面，多个script脚本可共享全局变量</h3>
+    <script>
+    // 在同一个生命周期内（页面未关闭或刷新），所有在某个js代码执行期间被创建的全局变量都能正常地被其它脚本中的JS代码访问。
+    var a = 1
+    function f (x) {
+        console.log(x)
+    }
+    </script>
+
+    <script>
+    var b = 2
+    console.log(a + b)  //可以访问上一个script脚本里的全局变量a
+    f(5)  //可访问上一个script脚本里的全局变量函数f
+    </script>
+</body>
+</html>

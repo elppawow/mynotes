@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>函数的this</h2>
+    <h3>函数的四种调用方法：</h3>
+    <ul>
+        <li>作为一个函数直接调用。function f () {}; f();（直接调用：如果一个函数没有作为方法、构造函数或通过apply和call调用的话，称之为作为函数被直接调用。）</li>
+        <li>作为一个方法，关联在一个对象上。var o = {f: function () {}}; o.f();</li>
+        <li>作为一个构造函数，实例化一个新对象。function F () {}; new F();</li>
+        <li>通过函数的apply或者call方法</li>
+    </ul>
+    <script>
+    // 第一种情况：
+    // 作为一个函数直接调用。在非严格模式下this是window对象。在严格模式下，this是undefined
+    function f1 () {
+        console.log('f1的this（作为函数直接调用，非严格模式），this指向window对象:')
+        console.log(this)
+    }
+    f1()
+    function f2 () {
+        "use strict";
+        console.log('f2的this(作为函数直接调用，严格模式) ，this是undefined:') 
+        console.log(this) 
+    }
+    f2()
+
+    // 第二种情况：
+    // 作为某个对象的方法被调用，this指向该对象
+    var o1 = {
+        f3: function () {
+            console.log('f3的this(作为对象o1的方法被调用) ，this指向该对象：')
+            console.log(this)
+        }
+    }
+    o1.f3()
+
+    </script>
+</body>
+</html>

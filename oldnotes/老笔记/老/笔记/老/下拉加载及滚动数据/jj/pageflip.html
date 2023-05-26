@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .allbox{
+        border: 1px solid blue;
+    }
+    .items{
+        border: 1px solid blue;
+        width: 300px;
+        height: 300px;
+    }
+    .bottombox{
+        width: 100%;
+        height: 1px;
+    }
+    </style>
+</head>
+<body>
+    <div class="allbox"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+    <script src="./js/jquery.min.js"></script>
+    <script>
+    var data = {
+        '1':[1, 2, 3, 4, 5],
+        '2':[6, 7, 8, 9, 10],
+        '3':[11, 12, 13, 14, 15],
+        '4':[16, 17, 18, 19, 20],
+        '5':[21, 22, 23, 24, 25]
+    }
+    var count = 1
+    for (i = 0; i < data[1].length; i++) {
+        var html = '<div class="items"><h1>' + data[1][i] + '</h1></div>'
+        $('.allbox').append(html)
+    }
+    count ++
+    // $(document).scroll(function () {
+    //     var scrollTop =$(this).scrollTop();//滚动高度
+    //     console.log(scrollTop)
+    // })
+
+    // div顶部相对window顶部的偏移
+    // $(window).scroll(function () {
+    //     var boxScrollTop = $(".allbox").offset().top - $(window).scrollTop();
+    //     console.log(boxScrollTop)
+    // })
+    
+    // 判断是否滚动到窗口底部
+    // $(window).scroll(function(){
+    //     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+    //         console.log('window的底部')
+    //     }
+    // });
+
+    // 判断是否滚动到某div的底部
+    // var boxbottom = $(".allbox").offset().top + $(".allbox").height()
+    // console.log(boxbottom)
+    // $(window).scroll(function(){
+    //     if ($(window).scrollTop() + $(window).height() > boxbottom) {
+    //         console.log('box的底部')
+    //     }
+    // });
+
+    $(window).scroll(function(){
+        var boxbottom = $(".allbox").offset().top + $(".allbox").height()
+        if ($(window).scrollTop() + $(window).height() > boxbottom) {
+            if (data[count]) {
+                console.log('开始加载第' + count + '页')
+                for (i = 0; i < data[count].length; i++) {
+                var html = '<div class="items"><h1>' + data[count][i] + '</h1></div>'
+                $('.allbox').append(html)
+                }
+                count ++
+            } else {
+                console.log('没有更多可加载了')
+            }
+        }
+    });
+
+
+
+    </script>
+</body>
+</html>

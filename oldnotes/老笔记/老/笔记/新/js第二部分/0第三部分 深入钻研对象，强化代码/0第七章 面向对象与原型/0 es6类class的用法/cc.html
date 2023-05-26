@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>test</h2>
+    <script>
+    // 类的基本用法
+    class N {
+        constructor (name, age) {
+            this.name = name
+            this.age = age
+        }
+        say (y) {
+            console.log(y)
+        }
+    }
+    var n = new N("jojo", 22)
+    console.log(n.name)
+    console.log(n.age)
+    n.say(n.name)
+
+    // 类的继承
+    class Nc extends N {
+        constructor (name, age, weapon) {
+            super(name, age)  //使用关键字super调用基类构造函数（基类设置了constructor属性，所以必须用super来调用）
+            this.weapon = weapon
+        }
+    }
+    var n1 = new Nc('haha', 33, 'chuizi')
+    console.log(n1.name)  //输出'haha',因为使用super调用了基类的name属性
+    console.log(n1.age)  //输出33，因为使用super调用基类的age属性
+    console.log(n1.weapon)  //输出'chuizi'子类自己的属性
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            width: 100%;
+        }
+        .box {
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="canvas" width="800" height="800" style="border: 1px solid #cccccc; display: block; margin: 50px auto;">
+            当前浏览器不支持Canvas,请更换浏览器后再试
+        </canvas>
+    </div>
+    
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas')
+            // 用js设置canvas的大小，等同与canvas标签里的width和height属性
+            canvas.width = 800
+            canvas.height = 800
+            if (canvas.getContext('2d')) {  //判断浏览器是否兼容canvas
+                var context = canvas.getContext('2d')
+
+                // function drawCircur (cxt, x, y) {
+                //     cxt.save();  //储存初始设置
+                //     cxt.translate(x, y);  //把坐标xy设置成00方便计算
+                //     //开始绘制
+                //     cxt.beginPath();
+                    
+
+                //     cxt.closePath();
+                //     //结束绘制
+                //     cxt.restore();  //恢复初始设置
+                // }
+
+
+                drawCircul (context, 400, 400, 100)
+
+                // 绘制圆，入参x,y为圆心坐标，r为圆的半径    
+                function drawCircul (cxt, x, y, r) {
+                    cxt.save();  //储存初始设置
+                    cxt.translate(x, y);  //把坐标xy设置成00方便计算
+                    //开始绘制
+                    context.fillStyle = "#cccccc";
+                    context.shadowColor = "blue";
+                    context.shadowBlur = 20;
+                    cxt.beginPath();
+                    cxt.arc(0, 0, r, 0, 2 * Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                    //结束绘制
+                    cxt.restore();  //恢复初始设置
+                }
+
+                var tems = "28";
+                var temtxts = "目标温度";
+                drawMidTip(context, 400, 400, tems, temtxts, "#0d83f1")
+
+                // 绘制文字，入参x,y为文字中心点坐标,txts1和txts2为两个要绘制的文本，co为文字颜色
+                function drawMidTip (cxt, x, y, txts1, txts2, co) {
+                    cxt.save()
+                    cxt.translate(x, y);
+                    cxt.font = "bold 78px 微软雅黑"
+                    cxt.fillStyle = co
+                    cxt.textAlign = "center"
+                    cxt.fillText (txts1, 0, 10)
+                    cxt.font = "28px 微软雅黑"
+                    cxt.fillText (txts2, 0, 55)
+                    cxt.font = "18px 微软雅黑"
+                    cxt.fillText ("℃", 55, -55)
+                    cxt.restore()
+                }
+
+
+                drawArc (context, 400, 400, 150)
+
+                // 绘制圆环，入参x,y为圆环中心点坐标，r为半径
+                function drawArc (cxt, x, y, r) {
+                    cxt.save();  //储存初始设置
+                    cxt.translate(x, y);  //把坐标xy设置成00方便计算
+                    //开始绘制
+                    context.lineWidth = 10;
+                    var grd=context.createLinearGradient(-150,0,150,0);  //入参依次，渐变起点的x坐标，渐变起点的y坐标，渐变终点的x坐标，渐变终点的y坐标
+                    grd.addColorStop(0,"blue");
+                    grd.addColorStop(1,"yellow");
+                    context.fillStyle = grd
+                    context.strokeStyle = grd
+                    cxt.beginPath();
+                    cxt.arc(0, 0, r, 0.75*Math.PI,  0.25*Math.PI);
+                    cxt.stroke();
+                    cxt.closePath();
+                    //结束绘制
+                    cxt.restore();  //恢复初始设置
+                }
+                
+
+            } else {
+                alert('当前浏览器不支持Canvas,请更换浏览器后再试')
+            }
+        }
+    </script>
+</body>
+</html>

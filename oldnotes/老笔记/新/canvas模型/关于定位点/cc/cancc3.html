@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            width: 100%;
+        }
+        .box {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="canvas" width="800" height="800" style="border: 1px solid #cccccc; display: block; margin: 50px auto;">
+            当前浏览器不支持Canvas,请更换浏览器后再试
+        </canvas>
+    </div>
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas')
+            // 用js设置canvas的大小，等同与canvas标签里的width和height属性
+            canvas.width = 800
+            canvas.height = 800
+            if (canvas.getContext('2d')) {  //判断浏览器是否兼容canvas
+                
+                // draws9(context);
+                function draws9 (x, y) {
+                    var cxt = canvas.getContext('2d')
+                    cxt.save();
+                    cxt.fillStyle = 'blue';
+                    cxt.strokeStyle = 'blue';
+                    cxt.lineWidth = 5;
+                    
+                    cxt.beginPath();
+                    cxt.arc(x, y, 5, 0, 2 * Math.PI);
+                    cxt.stroke();
+                    cxt.closePath();
+
+                    cxt.restore();
+                }
+
+
+
+                canvas.addEventListener('click', function (e) {
+                    // e.clientX获取的是相对于浏览器窗口的鼠标点击位置坐标x
+                    // 需要减去canvas元素相对于浏览器的偏移位置canvas.getBoundingClientRect().left
+                    // 获得点击点相对于canvas内的x坐标
+                    let x = e.clientX - canvas.getBoundingClientRect().left
+                    let y = e.clientY - canvas.getBoundingClientRect().top
+                    console.log(x + ';' + y)
+                    // 对于自适应的canvas（宽高根据屏幕变化），需要进行以下换算
+                    let w = $("#canvas").width()
+                    let h = $("#canvas").height()
+                    x1 = x * (800/w)
+                    y1 = y * (800/h)
+                    draws9(x1, y1)
+                })
+
+                // 正文结束
+
+            } else {
+                alert('当前浏览器不支持Canvas,请更换浏览器后再试')
+            }
+        }
+
+        
+    </script>
+</body>
+</html>

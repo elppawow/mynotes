@@ -1,0 +1,1 @@
+查看babel.config.js文件，内有详细说明

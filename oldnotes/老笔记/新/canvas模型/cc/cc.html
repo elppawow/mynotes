@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 点击事件，跳转评价页
+    if (window.uexCore) {
+        var cacheData = {
+            "key" : "EVELUTION",
+            "value" : {
+                "microApplicationNumber" : "B10074900",
+                "serviceSceneName" : "用能分析住宅"
+            }
+        }
+    }
+    uexCore.setTempCache(JSON.stringify(cacheData), function (data) {
+        var json = {
+            "menuId" : "A10072905"
+        }
+        uexCore.jumpToMenu(JSON.stringify(json), function (data) {
+
+        })
+    })
+
+
+    // 从评价页返回，判断是否已评价
+    var param = {
+        notice : [
+            {
+                'menuId' : 'A10072905',  // 接受数据来源场景
+                'key'    : 'EVELUTION', // 监听哪个key
+            }
+        ],
+        appId : 'B10074900' //自身ID
+    };
+    
+    uexCore.registerNotice(JSON.stringify(param),function(res){
+    
+    })
+    
+
+    </script>
+</body>
+</html>

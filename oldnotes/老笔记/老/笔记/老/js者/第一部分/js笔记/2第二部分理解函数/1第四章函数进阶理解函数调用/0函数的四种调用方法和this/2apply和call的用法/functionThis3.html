@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>apply和call</h2>
+    <script>
+    // apply和call的经典例子
+    function juggle () {
+        var result = 0
+        for (var n = 0; n < arguments.length; n++) {
+            result += arguments[n]
+        }
+        this.result = result
+    }
+    var ninja1 = {}
+    var ninja2 = {}
+
+    // 通过apply或call来使juggle函数里的this指向不同的对象
+    // apply和call唯一区别是第二个参数，apply接受一个数组，call接受一个个参数
+    juggle.apply(ninja1, [1, 2, 3, 4])  //调用juggle函数，参数是1，2，3，4, this指向ninja1(这样juggle中的this.result就是给ninja1添加属性result了)
+    juggle.call(ninja2, 5, 6, 7, 8)  //调用juggle函数，参数是5,6,7,8, this指向ninja2(这样juggle中的this.result就是给ninja2添加属性result了)
+
+    console.log(ninja1.result)
+    console.log(ninja2.result)
+
+
+
+    // apply和call的一个复杂点的例子
+    function forEach (list, callback) {
+        for (var n = 0; n < list.length; n++) {
+            callback.call(list[n], n)
+        }
+    }
+    var weapons = [
+        {type: 'shuriken'},
+        {type: 'katana'},
+        {type:'nunchucks'}
+    ]
+    forEach(weapons, function (index) {
+        if (this === weapons[index]) {
+            console.log('ok')
+        }
+    })
+
+    </script>
+</body>
+</html>

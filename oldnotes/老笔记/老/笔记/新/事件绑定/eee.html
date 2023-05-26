@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>test</h2>
+    <div id="d1"></div>
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        // 直接绑定方法无效，因为绑定时元素还未生成。所以用以下的方法绑定
+        $("body").on("click", "#yy", function () {
+            $("#yy").click(function () {
+                console.log(12)
+            })
+        })
+        
+        var hh = '<h2 id="yy">加入的内容</h2>'
+        setTimeout(function () {
+            $("#d1").append(hh)
+            $("#yy").click()  //但是会造成，点击元素第一下无效，第二下才出发事件。所以加载后自动点击一下，就解决了
+        },2000)
+    </script>
+</body>
+</html>

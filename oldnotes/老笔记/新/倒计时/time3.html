@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>time</h2>
+    <div id="allbox"></div>
+    <script>
+        // http://c.biancheng.net/view/5798.html
+
+        function showTime (et) {
+            var nowTime = new Date().getTime()
+            var endTime = new Date(et).getTime()
+            var leftTime = endTime - nowTime
+            var leftDay = Math.floor(leftTime / (1000 * 60 * 60 * 24))
+            var leftHour = Math.floor(leftTime / (1000 * 60 * 60) % 24)  //注，换算后是距离截止日期的全部小时数，需要%24取余后，得到我们想要的结果
+            var leftMinute = Math.floor(leftTime / (1000 * 60) % 60)
+            var leftSecond = Math.floor(leftTime / 1000 % 60)
+            return '距离' + et + '剩余时间：' + leftDay + '天；' + leftHour + '小时；' + leftMinute + '分；' + leftSecond + '秒'
+            
+        }
+        setInterval(function () {
+            // $('#allbox').text(showTime('2020/09/10'))
+
+            var todiv = document.getElementById("allbox")
+            todiv.innerHTML = showTime('2020/09/09')
+        }, 1000)
+
+    </script>
+</body>
+</html>

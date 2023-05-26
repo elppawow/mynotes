@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            width: 100%;
+        }
+        .box {
+            /* width: 357px;
+            height: 244px; */
+            width: 11.2em;
+            height: 7.6em;
+        }
+    </style>
+</head>
+<body style="font-size: 32px;">
+    <div class="box">
+        <canvas id="canvas" width="1024" height="700" style="border: 1px solid #cccccc; display: block; margin: 50px auto;">
+            当前浏览器不支持Canvas,请更换浏览器后再试
+        </canvas>
+    </div>
+    <script>
+        window.onload = function () {
+            // 入口
+            var ratez = 30  //变量ratez为可“节约的电费”的占比
+            var mprice = 999999  //本月电费xx元
+            var sprice = 188888   //可节约电费xx元
+            // 右侧三个柱图的高度占比，bar1,bar2,bar3总合等于100
+            var bar1 = 20
+            var bar2 = 30
+            var bar3 = 50
+            // 适配
+            var curweight = 357
+            var curheight = 244
+            
+            // 换算
+            var pieRatez = (2 / (100 / ratez))/2  //根据ratez计算出饼图的输入参数
+            var lineRatez = (360 / (100 / ratez))/2  //根据ratez计算出指示线的输入参数
+            var bar1h = 600 * (bar1 / 100)  //根据bar1计算出柱1的高度
+            var bar2h = 600 * (bar2 / 100)  //根据bar2计算出柱2的高度
+            var bar3h = 600 * (bar3 / 100)  //根据bar3计算出柱3的高度
+            var bar2b = 50 + bar1h  //根据bar1h计算出柱2的起点y坐标
+            var bar3b = 50 + bar1h + bar2h  //根据bar1h和bar2h计算出柱3的起点y坐标
+
+            var canvas = document.getElementById('canvas')
+            canvas.width = 1024
+            canvas.height = 700
+            if (canvas.getContext('2d')) {
+                var context = canvas.getContext('2d')
+                //开始绘制
+
+                // 饼图
+                // 入参：对象，圆心x坐标，圆心y坐标，开始角度数（2），结束角度数（2），大半径, 小半径，开始角度数（360），结束角度数（360）， 用户点击x左边，用户点击y坐标
+                function drawPie (cxt, x, y, b, e, r, r2, b1, e1, cx, cy) {
+                    cxt.save()
+                    cxt.translate(x, y)                   
+                    var x1 = 0 + 300 * Math.cos((b1 * Math.PI)/180) 
+                    var y1 = 0 + 300 * Math.sin((b1 * Math.PI)/180) 
+                    var x2 = 0 + 300 * Math.cos((e1 * Math.PI)/180) 
+                    var y2 = 0 + 300 * Math.sin((e1 * Math.PI)/180) 
+                    var xa1 = 0 + 200 * Math.cos((b1 * Math.PI)/180) 
+                    var ya1 = 0 + 200 * Math.sin((b1 * Math.PI)/180) 
+                    var xa2 = 0 + 200 * Math.cos((e1 * Math.PI)/180) 
+                    var ya2 = 0 + 200 * Math.sin((e1 * Math.PI)/180)                
+
+                    // 主扇形
+                    cxt.beginPath()
+                    cxt.arc(0, 0, r, b * Math.PI, e * Math.PI)
+                    cxt.lineTo(xa2, ya2)
+                    cxt.arc(0, 0, r2, e * Math.PI, b * Math.PI, true)
+                    cxt.lineTo(x1, y1)
+                    if(cxt.isPointInPath(cx, cy)) {
+                        var txtsprice = "可节约电费"
+                        drawMidTip(context, txtsprice, sprice, "#0d83f1")
+                    }
+                    context.fillStyle = "#0d83f1"
+                    context.fill()
+                    cxt.closePath()
+                    // 次扇形
+                    cxt.beginPath()
+                    cxt.arc(0, 0, r, e * Math.PI, b * Math.PI)
+                    cxt.lineTo(xa1, ya1)
+                    cxt.arc(0, 0, r2, b * Math.PI, e * Math.PI, true)
+                    cxt.lineTo(x2, y2)
+                    if(cxt.isPointInPath(cx, cy)) {
+                        var txtmprice = "本月电费"
+                        drawMidTip(context, txtmprice, mprice, "#eef1f1")
+                    }
+                    context.fillStyle = "#eef1f1"
+                    context.fill()
+                    cxt.closePath()
+                    cxt.restore()
+                }
+                drawPie(context, 350, 350, -pieRatez, pieRatez, 300, 200, -lineRatez, lineRatez)
+
+                // 矩形
+                // 入参：对象，左上角起点x坐标，左上角起点y坐标，矩形宽度，矩形高度，圆角弧度
+                function drawRoundRectTop (cxt, x, y, w, h, r) {
+                    cxt.save()
+                    cxt.translate(x, y)
+                    cxt.beginPath()
+                    cxt.arc(r, r, r, Math.PI, 1.5*Math.PI)
+                    cxt.lineTo(w - r, 0)
+                    cxt.arc(w - r, r, r, 1.5*Math.PI, 2*Math.PI)
+                    cxt.lineTo(w, h)
+                    cxt.lineTo(0, h)
+                    cxt.lineTo(0, r)
+                    cxt.closePath()
+                    context.fillStyle = "#86c1f8"
+                    context.fill()
+                    context.font = "28px 微软雅黑"
+                    context.fillStyle = "#fff"
+                    context.textAlign = "center"
+                    var txtheigh1 = bar1h / 2
+                    context.fillText (bar1 + "%", 75, txtheigh1)
+                    cxt.restore()
+                }
+                // 入参：对象，左上角起点x坐标，左上角起点y坐标，矩形宽度，矩形高度
+                function drawRoundRectMid (cxt, x, y, w, h) {
+                    cxt.save()
+                    cxt.translate(x, y)
+                    cxt.beginPath()
+                    cxt.rect(0, 0, w, h)
+                    cxt.closePath()
+                    context.fillStyle = "#3d9cf4"
+                    context.fill()
+                    context.font = "28px 微软雅黑"
+                    context.fillStyle = "#fff"
+                    context.textAlign = "center"                  
+                    var txtheigh2 = bar2h / 2                            
+                    context.fillText (bar2 + "%", 75, txtheigh2)                   
+                    cxt.restore()
+                }
+                // 入参：对象，左上角起点x坐标，左上角起点y坐标，矩形宽度，矩形高度，圆角弧度
+                function drawRoundRectDown (cxt, x, y, w, h, r) {
+                    cxt.save()
+                    cxt.translate(x, y)
+                    cxt.beginPath()
+                    cxt.moveTo(0, 0)
+                    cxt.lineTo(w, 0)
+                    cxt.lineTo(w, h - r)
+                    cxt.arc(w - r, h - r, r, 0, 0.5*Math.PI)
+                    cxt.lineTo(r, h)
+                    cxt.arc(r, h - r, r, 0.5*Math.PI, Math.PI)
+                    cxt.lineTo(0, r)
+                    cxt.closePath()
+                    context.fillStyle = "#0d83f1"
+                    context.fill()
+                    context.font = "28px 微软雅黑"
+                    context.fillStyle = "#fff"
+                    context.textAlign = "center"                   
+                    var txtheigh3 = bar3h / 2                   
+                    context.fillText (bar3 + "%", 75, txtheigh3)
+                    cxt.restore()
+                }
+                drawRoundRectTop(context, 800, 50, 150, bar1h, 15)
+                drawRoundRectMid(context, 800, bar2b, 150, bar2h)
+                drawRoundRectDown(context, 800, bar3b, 150, bar3h, 15)
+
+                // 连接指示线绘制
+                // 入参：对象，主扇形开始角度数，主扇形结束角度数
+                function drawGuideline (cxt, b, e) {
+                    var x1 = 350 + 300 * Math.cos((b * Math.PI)/180) 
+                    var y1 = 350 + 300 * Math.sin((b * Math.PI)/180) 
+                    var x2 = 350 + 300 * Math.cos((e * Math.PI)/180) 
+                    var y2 = 350 + 300 * Math.sin((e * Math.PI)/180) 
+                    // 绘制连接线
+                    cxt.save()
+                    cxt.lineWidth = 3
+                    cxt.strokeStyle = "#eef1f1"
+                    cxt.beginPath()
+                    cxt.moveTo(x1, y1)
+                    cxt.lineTo(800, 55)
+                    cxt.stroke()
+                    cxt.closePath()
+                    cxt.beginPath()
+                    cxt.moveTo(x2, y2)
+                    cxt.lineTo(800, 645)
+                    cxt.stroke()
+                    cxt.closePath()
+                    cxt.restore()
+                }
+                drawGuideline(context, -lineRatez, lineRatez)
+
+                // 饼中文字
+                function drawMidTip (cxt, txts1, txts2, co) {
+                    cxt.save()
+                    cxt.font = "bold 48px 微软雅黑"
+                    cxt.fillStyle = co
+                    cxt.textAlign = "center"
+                    cxt.fillText (txts1, 0, -35)
+                    cxt.fillText (txts2 + "元", 0, 35)
+                    cxt.restore()
+                }
+
+                // 交互
+                canvas.addEventListener("mouseup", detect)
+                function detect(event) {
+                    var x = event.clientX - canvas.getBoundingClientRect().left
+                    var y = event.clientY - canvas.getBoundingClientRect().top
+                    x1 = x * (1024/curweight)
+                    y1 = y * (768/curheight)
+                    context.clearRect(0, 0, canvas.width * 0.7, canvas.height)  //清空canvas
+                    // 重绘canvas
+                    drawPie(context, 350, 350, -pieRatez, pieRatez, 300, 200, -lineRatez, lineRatez, x1, y1)
+                    drawGuideline(context, -lineRatez, lineRatez)
+                    context.restore()
+                }
+            } else {
+                alert('当前浏览器不支持Canvas,请更换浏览器后再试')
+            }
+        }
+    </script>
+</body>
+</html>

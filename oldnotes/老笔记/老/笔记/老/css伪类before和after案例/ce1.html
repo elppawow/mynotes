@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .d1{
+        width: 300px;
+        height: 300px;
+        background-color: blue;
+        position: relative;
+    }
+    /* :before的位置和原元素重合，样式会覆盖原元素 */
+    .d1:before {   
+        content: "before";   
+        width: 150px;
+        height: 150px;
+        display: block;
+        background-color: lightcoral;
+    }   
+    /* :after的位置会在原元素之后插入。要想和原元素重合，需要设置其position: absolute;并设置原元素position: relative; */
+    .d1:after {   
+        content: "after"; 
+        width: 80px;
+        height: 80px;
+        display: block;
+        background-color: lawngreen;  
+        position: absolute;
+        top: 0;
+        right: 0;
+    }  
+    </style>
+</head>
+<body>
+    <div class="d1"></div>
+</body>
+</html>

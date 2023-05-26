@@ -1,0 +1,10 @@
+
+//页面引入（放在引入js前面）
+<script src="path/to/vconsole.min.js"></script>
+
+//初始化方法
+<script>
+  // init vConsole
+  var vConsole = new VConsole();
+  console.log('Hello world');
+</script>

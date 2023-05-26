@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .allbox {
+      border: 1px block blue;
+    }
+    .allbox>div {
+      height: 20px;
+      background-color: chocolate;
+      border: 1px block green;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>randomTest</h2>
+  <div class="allbox">
+    <div class="d0"></div>
+    <div class="d1"></div>
+    <div class="d2"></div>
+    <div class="d3"></div>
+    <div class="d4"></div>
+    <div class="d5"></div>
+    <div class="d6"></div>
+    <div class="d7"></div>
+    <div class="d8"></div>
+    <div class="d9"></div>
+  </div>
+  <script src="./js/jquery.min.js"></script>
+  <script>
+    // let nn = Math.ceil(Math.random()*9)  //向上取整 1-9
+    // let nn = Math.floor(Math.random()*9)  //向下取整 0-9
+    // let nn = Math.round(Math.random()*9)  //四舍五入 0-9
+
+
+    let a0 = 0
+    let b1 = 0
+    let c2 = 0
+    let d3 = 0
+    let e4 = 0
+    let f5 = 0
+    let g6 = 0
+    let h7 = 0
+    let i8 = 0
+    let j9 = 0
+    // console.log(a0)
+    // console.log(b1)
+    // console.log(c2)
+    // console.log(d3)
+    // console.log(e4)
+    // console.log(f5)
+    // console.log(g6)
+    // console.log(h7)
+    // console.log(i8)
+    // console.log(j9)
+    for (let i = 0; i < 10000; i++) {
+      // let nn = Math.ceil(Math.random()*9)  //ceil向上取整 1-9 （分布均匀）
+      // let nn = Math.floor(Math.random()*9)  //floor向下取整 0-8 （分布均匀）
+      let nn = Math.round(Math.random()*9)  //round四舍五入 0-9 （分布不均，0和9的概率小于其它数字）
+      if (nn === 0) {
+        a0++
+      } else if (nn == 1) {
+        b1++
+      } else if (nn == 2) {
+        c2++
+      } else if (nn == 3) {
+        d3++
+      } else if (nn == 4) {
+        e4++
+      } else if (nn == 5) {
+        f5++
+      } else if (nn == 6) {
+        g6++
+      } else if (nn == 7) {
+        h7++
+      } else if (nn == 8) {
+        i8++
+      } else if (nn == 9) {
+        j9++
+      }
+    }
+    // console.log('************************************')
+    console.log(a0)
+    console.log(b1)
+    console.log(c2)
+    console.log(d3)
+    console.log(e4)
+    console.log(f5)
+    console.log(g6)
+    console.log(h7)
+    console.log(i8)
+    console.log(j9)
+    if (a0 == 0) {
+      $('.d0').width('1px').text(a0)
+    } else {
+      $('.d0').width(a0 + 'px').text(a0)
+    }
+    if (b1 == 0) {
+      $('.d1').width('1px').text(b1)
+    } else {
+      $('.d1').width(b1 + 'px').text(b1)
+    }
+    if (c2 == 0) {
+      $('.d2').width('1px').text(c2)
+    } else {
+      $('.d2').width(c2 + 'px').text(c2)
+    }
+    if (d3 == 0) {
+      $('.d3').width('1px').text(d3)
+    } else {
+      $('.d3').width(d3 + 'px').text(d3)
+    }
+    if (e4 == 0) {
+      $('.d4').width('1px').text(e4)
+    } else {
+      $('.d4').width(e4 + 'px').text(e4)
+    }
+    if (f5 == 0) {
+      $('.d5').width('1px').text(f5)
+    } else {
+      $('.d5').width(f5 + 'px').text(f5)
+    }
+    if (g6 == 0) {
+      $('.d6').width('1px').text(g6)
+    } else {
+      $('.d6').width(g6 + 'px').text(g6)
+    }
+    if (h7 == 0) {
+      $('.d7').width('1px').text(h7)
+    } else {
+      $('.d7').width(h7 + 'px').text(h7)
+    }
+    if (i8 == 0) {
+      $('.d8').width('1px').text(i8)
+    } else {
+      $('.d8').width(i8 + 'px').text(i8)
+    }
+    if (j9 == 0) {
+      $('.d9').width('1px').text(j9)
+    } else {
+      $('.d9').width(j9 + 'px').text(j9)
+    }
+    
+  </script>
+</body>
+</html>

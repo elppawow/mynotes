@@ -1,0 +1,9 @@
+$(function(){
+	$("#eRow1").children().children().hover(function(){
+		$(this).find("img").addClass("r1imghover");
+		$(this).find("h3").addClass("r1imghover");
+	},function(){
+		$(this).find("img").removeClass("r1imghover");
+		$(this).find("h3").removeClass("r1imghover");
+	});
+});

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            width: 100%;
+        }
+        .box {
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="canvas" width="800" height="800" style="border: 1px solid #cccccc; display: block; margin: 50px auto;">
+            当前浏览器不支持Canvas,请更换浏览器后再试
+        </canvas>
+    </div>
+    
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas')
+            // 用js设置canvas的大小，等同与canvas标签里的width和height属性
+            canvas.width = 800
+            canvas.height = 800
+            if (canvas.getContext('2d')) {  //判断浏览器是否兼容canvas
+                var context = canvas.getContext('2d')
+                //开始绘制
+                // context.beginPath()
+                // context.moveTo(100, 100)
+                // context.lineTo(700, 700)
+                // context.lineTo(100, 700)
+                // context.lineTo(100, 100)
+                // context.closePath()
+                // context.lineWidth = 5
+                // context.fillStyle = "rgb(2,100,30"
+                // context.fill()
+                // context.strokeStyle = "#005588"
+                // context.stroke()
+                // context.beginPath()
+                // context.moveTo(200, 100)
+                // context.lineTo(700, 600)
+                // context.closePath()
+                // context.strokeStyle = "black"
+                // context.shadowColor = "blue"
+                // context.shadowBlur = 20
+                // context.stroke()
+
+                context.lineWidth = 5
+                context.strokeStyle = "black"
+                context.fillStyle = "blue"
+                // context.shadowColor = "blue"
+                // context.shadowBlur = 20
+
+                context.beginPath()
+                context.arc(300, 300, 100, 0, 2*Math.PI)
+                
+                context.fill()
+                context.closePath()
+
+                context.lineWidth = 10
+                var grd=context.createLinearGradient(300,500,600,500);
+                grd.addColorStop(0,"blue");
+                grd.addColorStop(1,"yellow");
+                context.fillStyle = grd
+                context.strokeStyle = grd
+                context.beginPath()
+                context.arc(500, 500, 100, 0.75*Math.PI,  0.25*Math.PI)
+                // context.fill()
+                context.stroke()
+                
+                context.closePath()
+                
+
+            } else {
+                alert('当前浏览器不支持Canvas,请更换浏览器后再试')
+            }
+        }
+    </script>
+</body>
+</html>

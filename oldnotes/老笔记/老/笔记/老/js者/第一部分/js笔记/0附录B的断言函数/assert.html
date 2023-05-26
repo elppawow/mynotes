@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #results li.pass {
+        color: blue;
+    }
+    #results li.fail {
+        color: red;
+    }
+    </style>
+</head>
+<body>
+    <h2>assert</h2>
+    <ul id="results"></ul>
+    <script>
+    // 附录B 测试与调试的武器 中 断言函数
+    
+    // assert函数
+    function assert (value, desc) {
+        var li = document.createElement("li")
+        li.className = value ? "pass" : "fail"
+        li.appendChild(document.createTextNode(desc))
+        document.getElementById("results").appendChild(li)
+    }
+
+    // report函数
+    function report (text) {
+        assert(true, text)
+    }
+
+    // assert示例
+    var a = true
+    var b = false
+    window.onload = function () {
+        assert(a, "The test suite is running.")
+        assert(b, "Fail!")
+    }
+    var c = 1
+    assert(c > 0, "c大于0")
+    assert(c > 1, "c大于1")
+
+    // report示例
+    report("这是report的示例文字")
+
+    </script>
+</body>
+</html>

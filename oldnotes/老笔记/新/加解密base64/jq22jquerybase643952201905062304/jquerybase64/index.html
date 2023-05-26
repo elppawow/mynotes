@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jquery.base64.js加密、解密</title>
+<style>
+.bt{
+    padding: 5px;
+    border: 1px solid #6E6E6E;cursor: pointer
+}
+	input{border: 1px solid #6E6E6E;padding: 5px;}
+</style>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="jquery.base64.js"></script>
+</head>
+
+<body>
+<h1>jquery.base64.js</h1>
+<h3>加密</h3>
+<input type="text" id="jia" value="123456"><span class="bt" id="j">加密</span>	
+<div class="jg" id="jg"></div>
+	
+	
+<h3>解密</h3>
+<input type="text" id="jie" value="MTIzNDU2"><span class="bt" id="j2">解密</span>	
+<div class="jg" id="jm"></div>	
+	
+<script>
+	
+	$("#jg").text("加密结果："+$.base64.encode($("#jia").val()));
+	$("#j").click(function(){
+		 $("#jg").text("加密结果："+$.base64.encode($("#jia").val()));
+	});
+	
+	
+	$("#jm").text("解密结果："+$.base64.decode($("#jie").val()));
+	$("#j2").click(function(){
+		 $("#jm").text("解密结果："+$.base64.decode($("#jie").val()));
+	});
+	
+	
+</script>
+	
+</body>
+</html>

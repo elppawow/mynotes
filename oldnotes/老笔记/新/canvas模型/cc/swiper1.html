@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/swiper.min.css">
+</head>
+<body>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" id="example_list1"><img src="./img/banner01.jpg" alt=""></div>
+            <div class="swiper-slide" id="example_list2"><img src="./img/banner02.jpg" alt=""></div>
+            <div class="swiper-slide" id="example_list3"><img src="./img/banner03.jpg" alt=""></div>
+        </div>
+    </div>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/swiper.min.js"></script>
+    <script>
+        // var swiper = new Swiper('.swiper-container', {
+        //     pagination: '.swiper-pagination',
+        //     slidesPerView: 'auto',
+        //     paginationClickable: true,
+        //     spaceBetween: 15
+        // });
+        // var mySwiper = new Swiper('.swiper-container',{
+        //     onSlideChangeEnd: function(swiper){
+        //     alert('事件触发了;');
+        //     }
+        // })
+
+        var mySwiper = new Swiper('.swiper-container',{
+            onReachEnd: function(swiper){
+                alert('到了最后一个slide');
+            },
+            onReachBeginning: function(swiper){
+                alert('到了第一个slide');
+            }
+        })
+    </script>
+</body>
+</html>

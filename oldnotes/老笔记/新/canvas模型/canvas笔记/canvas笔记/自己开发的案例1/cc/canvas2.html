@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            width: 100%;
+        }
+        .box {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="canvas" width="1024" height="768" style="border: 1px solid #cccccc; display: block; margin: 50px auto;">
+            当前浏览器不支持Canvas,请更换浏览器后再试
+        </canvas>
+    </div>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas')
+            // 用js设置canvas的大小，等同与canvas标签里的width和height属性
+            canvas.width = 1024
+            canvas.height = 768
+            if (canvas.getContext('2d')) {  //判断浏览器是否兼容canvas
+                var context = canvas.getContext('2d')
+                //开始绘制
+                context.lineWidth = 50
+                context.beginPath()
+                context.strokeStyle = "#005588"
+                context.arc(300, 300, 200, 0, 1.5*Math.PI)
+                context.stroke()
+                context.closePath()
+                context.beginPath()
+                context.strokeStyle = "red"
+                context.arc(300, 300, 200, 1.5*Math.PI, 2*Math.PI)
+                context.stroke()
+                context.closePath()
+            } else {
+                alert('当前浏览器不支持Canvas,请更换浏览器后再试')
+            }
+        }
+    </script>
+</body>
+</html>

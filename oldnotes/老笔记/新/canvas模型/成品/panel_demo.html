@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 30%;
+        }
+        #canvas {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="canvas" width="800" height="800" style="border: 1px solid #cccccc; display: block; margin: 50px auto;">
+            当前浏览器不支持Canvas,请更换浏览器后再试
+        </canvas>
+    </div>
+    
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas')
+            canvas.width = 800
+            canvas.height = 800
+            if (canvas.getContext('2d')) {
+                var ratez = 70;  //温度入口，导入实际温度
+                if (ratez < 1) {
+                    ratez = 1
+                } else if (ratez > 99) {
+                    ratez = 99
+                }
+                var zRatez = (1.5 / (100 / ratez)) + 0.75;
+                var sRatez = 360 * (zRatez / 2);
+                var context = canvas.getContext('2d')
+
+                drawCircul (context, 400, 400, 100)
+                // 绘制圆  
+                function drawCircul (cxt, x, y, r) {
+                    cxt.save(); 
+                    cxt.translate(x, y);
+                    cxt.fillStyle = "#cccccc";  //中间圆盘背景色
+                    cxt.shadowColor = "blue";  //中间圆盘阴影颜色
+                    cxt.shadowBlur = 20;
+                    cxt.beginPath();
+                    cxt.arc(0, 0, r, 0, 2 * Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                    cxt.restore();
+                }
+
+                var tems = ratez;
+                var temtxts = "目标温度";
+                drawMidTip(context, 400, 400, tems, temtxts, "#0d83f1")
+                // 绘制文字，txts1和txts2为两个要绘制的文本，co为文字颜色
+                function drawMidTip (cxt, x, y, txts1, txts2, co) {
+                    cxt.save()
+                    cxt.translate(x, y);
+                    cxt.font = "bold 78px 微软雅黑"
+                    cxt.fillStyle = co
+                    cxt.textAlign = "center"
+                    cxt.fillText (txts1, 0, 10)
+                    cxt.font = "28px 微软雅黑"
+                    cxt.fillText (txts2, 0, 55)
+                    cxt.font = "18px 微软雅黑"
+                    cxt.fillText ("℃", 55, -55)
+                    cxt.restore()
+                }
+
+                drawArc (context, 400, 400, 150, zRatez, sRatez)
+                // 绘制圆环
+                function drawArc (cxt, x, y, r, ra, ra2) {
+                    cxt.save();
+                    cxt.translate(x, y);
+                    cxt.lineWidth = 10;
+                    var grd=context.createLinearGradient(-150,0,150,0);
+                    grd.addColorStop(0,"blue");  //设置渐变起始颜色
+                    grd.addColorStop(1,"yellow");  //设置渐变结束颜色
+                    cxt.fillStyle = grd
+                    cxt.strokeStyle = grd
+                    var x1 = 0 + 150 * Math.cos((ra2 * Math.PI)/180) 
+                    var y1 = 0 + 150 * Math.sin((ra2 * Math.PI)/180) 
+                    var x2 = 0 + 140 * Math.cos((ra2 * Math.PI)/180) 
+                    var y2 = 0 + 140 * Math.sin((ra2 * Math.PI)/180) 
+
+                    var x3 = 0 + 150 * Math.cos((135 * Math.PI)/180) 
+                    var y3 = 0 + 150 * Math.sin((135 * Math.PI)/180) 
+                    var x4 = 0 + 140 * Math.cos((135 * Math.PI)/180) 
+                    var y4 = 0 + 140 * Math.sin((135 * Math.PI)/180) 
+
+                    var x5 = 0 + 145 * Math.cos((135 * Math.PI)/180) 
+                    var y5 = 0 + 145 * Math.sin((135 * Math.PI)/180) 
+
+
+                    cxt.beginPath();
+                    cxt.moveTo(x4, y4);
+                    cxt.lineTo(x3, y3);
+
+                    cxt.arc(0, 0, r, 0.75*Math.PI,  ra*Math.PI);
+                    cxt.lineTo(x2, y2);
+                    cxt.arc(0, 0, 140, ra*Math.PI,  0.75*Math.PI, true);
+                    cxt.arc(x5, y5, 5, ra*Math.PI,  0.75*Math.PI);
+                    cxt.fill();
+                    cxt.closePath();           
+                    cxt.restore();
+                }
+
+                drawArc2 (context, 400, 400, 150, zRatez, sRatez)
+                function drawArc2 (cxt, x, y, r, ra, ra2) {
+                    cxt.save();
+                    cxt.translate(x, y);
+                    cxt.lineWidth = 10;
+                    cxt.strokeStyle = '#fff';
+                    cxt.fillStyle = '#fff';
+                    cxt.shadowColor = "blue"
+                    cxt.shadowBlur = 20
+
+                    var x1 = 0 + 150 * Math.cos((ra2 * Math.PI)/180) 
+                    var y1 = 0 + 150 * Math.sin((ra2 * Math.PI)/180) 
+                    var x2 = 0 + 140 * Math.cos((ra2 * Math.PI)/180) 
+                    var y2 = 0 + 140 * Math.sin((ra2 * Math.PI)/180) 
+
+                    var x3 = 0 + 150 * Math.cos((45 * Math.PI)/180) 
+                    var y3 = 0 + 150 * Math.sin((45 * Math.PI)/180) 
+                    var x4 = 0 + 140 * Math.cos((45 * Math.PI)/180) 
+                    var y4 = 0 + 140 * Math.sin((45 * Math.PI)/180) 
+
+                    var x5 = 0 + 145 * Math.cos((45 * Math.PI)/180) 
+                    var y5 = 0 + 145 * Math.sin((45 * Math.PI)/180) 
+                    cxt.beginPath();
+                    cxt.arc(0, 0, r, ra*Math.PI,  0.25*Math.PI);
+                    cxt.arc(x5, x5, 5, 0.25*Math.PI,  ra*Math.PI);
+                    cxt.arc(0, 0, 140, 0.25*Math.PI,  ra*Math.PI, true);
+                    cxt.fill();
+                    cxt.closePath();
+                    cxt.restore();
+                }
+
+
+                drawPoint (context, 400, 400, 10, sRatez)
+                // 绘制指针圆点
+                function drawPoint (cxt, x, y, r, ra) {
+                    cxt.save();
+                    cxt.fillStyle = "blue";  //设置温度指示圆点的颜色
+                    cxt.shadowColor = "yellow";  //设置温度指示圆点的阴影色
+                    cxt.shadowBlur = 20;
+                    var x1 = x + 145 * Math.cos((ra * Math.PI)/180) 
+                    var y1 = y + 145 * Math.sin((ra * Math.PI)/180) 
+                    cxt.beginPath();
+                    cxt.arc(x1, y1, r, 0,  2*Math.PI);
+                    cxt.fill();
+                    cxt.closePath();
+                    cxt.restore();
+                }    
+
+                drawAngle(context, 400, 400, 110, 100, sRatez);
+                // 绘制指针三角
+                function drawAngle (cxt, x, y, r1, r2, ra) {
+                    cxt.save();
+                    cxt.fillStyle = "red";  //设置指针三角形颜色
+                    var rb = ra + 5;
+                    var rc = ra - 5;
+                    var xa = x + r1 * Math.cos((ra * Math.PI)/180); 
+                    var ya = y + r1 * Math.sin((ra * Math.PI)/180); 
+                    var xb = x + r2 * Math.cos((rb * Math.PI)/180); 
+                    var yb = y + r2 * Math.sin((rb * Math.PI)/180); 
+                    var xc = x + r2 * Math.cos((rc * Math.PI)/180); 
+                    var yc = y + r2 * Math.sin((rc * Math.PI)/180); 
+                    cxt.beginPath();
+                    cxt.moveTo(xa, ya);
+                    cxt.lineTo(xb, yb);
+                    cxt.lineTo(xc, yc);
+                    cxt.closePath();  
+                    cxt.fill();
+                }    
+
+                // 仅供演示用，setInterval这段可直接删除掉
+                setInterval(function () {
+                    context.clearRect(0, 0, canvas.width, canvas.height) 
+                    var ss = Math.ceil(Math.random()*100);
+                    var ratez = ss;
+                    if (ratez < 1) {
+                        ratez = 1
+                    } else if (ratez > 99) {
+                        ratez = 99
+                    }
+                    var zRatez = (1.5 / (100 / ratez)) + 0.75;
+                    var sRatez = 360 * (zRatez / 2);
+                    drawCircul (context, 400, 400, 100)
+                    var tems = ratez;
+                    var temtxts = "目标温度";
+                    drawMidTip(context, 400, 400, tems, temtxts, "#0d83f1")
+                    drawArc (context, 400, 400, 150, zRatez, sRatez)
+                    drawArc2 (context, 400, 400, 150, zRatez, sRatez)
+                    drawPoint (context, 400, 400, 10, sRatez)
+                    drawAngle(context, 400, 400, 110, 100, sRatez);
+                }, 500)
+
+            } else {
+                alert('当前浏览器不支持Canvas,请更换浏览器后再试')
+            }    
+        
+        }
+
+    </script>
+</body>
+</html>

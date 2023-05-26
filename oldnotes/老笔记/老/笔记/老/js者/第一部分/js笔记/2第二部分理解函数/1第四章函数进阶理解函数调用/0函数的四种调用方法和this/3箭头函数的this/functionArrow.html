@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>箭头函数</h2>
+    <script>
+    // 重点：箭头函数没有单独的this值，尽头函数的this与声明所在的上下文的this相同
+
+    // 例1：构造函数里声明一个箭头函数farrow，其this就和构造函数的this相同，而构造函数的this指向new构建的实例，所以farrow的this也指向实例f
+    function F () {
+        this.farrow = () => {
+            return this
+        }
+    }
+    var f = new F()
+    if (f.farrow() === f) {
+        console.log('farrow的this指向构造函数的实例')
+    }
+    
+    // 例2：在对象o里使用箭头函数创建ff方法，ff的this就指向o的this。所以是window对象
+    var o = {
+        ff: () => {
+            return this
+        }
+    }
+    
+    if (o.ff() === window) {
+        console.log('ff的this指向window对象')
+    }
+
+    // 例3：综合运用
+    function Ff () {
+        this.fff = () => {
+            this.name = 'jojojo'
+        }
+    }
+    var ff = new Ff()
+    ff.fff()  //执行fff箭头函数，由于其this和Ff的this一致，所以指向实例对象ff
+    console.log(ff.name)
+    
+    </script>
+</body>
+</html>
