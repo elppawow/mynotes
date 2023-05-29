@@ -1,6 +1,6 @@
 let state = Math.ceil(Math.random()*20); //生成1-10的随机数
 
-// async定义的函数返回的是一个promise对象
+// async定义的函数返回的是一个promise的实例对象
 // 示例如下：
 // async function timeout() {
 //     if (state > 10) {
